@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pinapp/constans.dart';
 import 'Screens/crate_pin_screen.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class PinnApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Pin App',
       theme: ThemeData(
-        primaryColor: Colors.white,
+        primaryColor: kwhiteColor,
       ),
       home: CreatePinScreen(),
     );
