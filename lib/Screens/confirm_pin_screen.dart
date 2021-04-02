@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:pinapp/components/backspace_icon_button.dart';
 import 'package:pinapp/components/custom_appbar.dart';
 import 'package:pinapp/components/digit_button.dart';
 import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
 
-class CreatePinScreen extends StatefulWidget {
+class ConfirmPinScreen extends StatefulWidget {
   @override
-  _CreatePinScreenState createState() => _CreatePinScreenState();
+  _ConfirmPinScreen createState() => _ConfirmPinScreen();
 }
 
-class _CreatePinScreenState extends State<CreatePinScreen> {
+class _ConfirmPinScreen extends State<ConfirmPinScreen> {
   @override
   Widget build(BuildContext context) {
     var selectedIndex;
@@ -28,7 +29,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                 children: [
                   Container(
                     child: TextTitle(
-                      text: "Create PIN",
+                      text: "Re-enter your PIN",
                       size: size,
                     ),
                   ),

@@ -5,15 +5,16 @@ import 'package:pinapp/components/digit_button.dart';
 import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
 
-class CreatePinScreen extends StatefulWidget {
+class AuthScreen extends StatefulWidget {
   @override
-  _CreatePinScreenState createState() => _CreatePinScreenState();
+  _AuthScreenState createState() => _AuthScreenState();
 }
 
-class _CreatePinScreenState extends State<CreatePinScreen> {
+class _AuthScreenState extends State<AuthScreen> {
+  get selectedIndex => null;
+
   @override
   Widget build(BuildContext context) {
-    var selectedIndex;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: CustomAppBar(height: size.height * 0.08, size: size),
@@ -28,7 +29,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                 children: [
                   Container(
                     child: TextTitle(
-                      text: "Create PIN",
+                      text: "Enter your PIN",
                       size: size,
                     ),
                   ),
