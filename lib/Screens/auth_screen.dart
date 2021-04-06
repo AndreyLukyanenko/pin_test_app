@@ -6,6 +6,7 @@ import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
 
 class AuthScreen extends StatefulWidget {
+  static String routeName = "/auth";
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
@@ -41,11 +42,10 @@ class _AuthScreenState extends State<AuthScreen> {
                       alignment: Alignment.center,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
                         children: [
                           DigitHolder(
                             index: 0,
-                            selectedIndex: selectedIndex,
+                            dataLength: selectedIndex,
                             size: size,
                             margin: EdgeInsets.only(
                               left: 40.0,
@@ -54,7 +54,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           DigitHolder(
                             index: 1,
-                            selectedIndex: selectedIndex,
+                            dataLength: selectedIndex,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -62,7 +62,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           DigitHolder(
                             index: 2,
-                            selectedIndex: selectedIndex,
+                            dataLength: selectedIndex,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -70,7 +70,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           DigitHolder(
                             index: 3,
-                            selectedIndex: selectedIndex,
+                            dataLength: selectedIndex,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,

@@ -4,10 +4,14 @@ import '../constans.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
+  final Icon icon;
+  final Function onTap;
   const CustomAppBar({
     Key key,
     @required this.size,
     this.height,
+    this.icon,
+    this.onTap,
   }) : super(key: key);
 
   final Size size;
@@ -15,7 +19,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: Icon(Icons.arrow_back_ios),
       title: Text(
         'Setup PIN',
         style: TextStyle(

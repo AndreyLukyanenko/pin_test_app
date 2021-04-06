@@ -5,19 +5,37 @@ import 'package:pinapp/components/custom_appbar.dart';
 import 'package:pinapp/components/digit_button.dart';
 import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfirmPinScreen extends StatefulWidget {
+  static String routeName = "/confirm_pin";
+
   @override
   _ConfirmPinScreen createState() => _ConfirmPinScreen();
 }
 
 class _ConfirmPinScreen extends State<ConfirmPinScreen> {
+  String confirmPin = '';
+  addDigit(int digit) {
+    setState(() {
+      confirmPin = confirmPin + digit.toString();
+      print('Code is $confirmPin');
+    });
+    if (confirmPin.length == 4) {
+      AlertDialog(
+        title: Text('You Path'),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var selectedIndex;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppBar(height: size.height * 0.08, size: size),
+      appBar: CustomAppBar(
+        height: size.height * 0.08,
+        size: size,
+      ),
       body: Column(
         children: [
           Expanded(
@@ -41,11 +59,10 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
                       alignment: Alignment.center,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
                         children: [
                           DigitHolder(
-                            index: 0,
-                            selectedIndex: selectedIndex,
+                            index: 1,
+                            dataLength: confirmPin.length,
                             size: size,
                             margin: EdgeInsets.only(
                               left: 40.0,
@@ -53,16 +70,8 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
                             ),
                           ),
                           DigitHolder(
-                            index: 1,
-                            selectedIndex: selectedIndex,
-                            size: size,
-                            margin: EdgeInsets.only(
-                              right: 40.0,
-                            ),
-                          ),
-                          DigitHolder(
                             index: 2,
-                            selectedIndex: selectedIndex,
+                            dataLength: confirmPin.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -70,7 +79,15 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
                           ),
                           DigitHolder(
                             index: 3,
-                            selectedIndex: selectedIndex,
+                            dataLength: confirmPin.length,
+                            size: size,
+                            margin: EdgeInsets.only(
+                              right: 40.0,
+                            ),
+                          ),
+                          DigitHolder(
+                            index: 4,
+                            dataLength: confirmPin.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -100,17 +117,23 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
                         DigitButton(
                           text: "1",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(1);
+                          },
                         ),
                         DigitButton(
                           text: "2",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(2);
+                          },
                         ),
                         DigitButton(
                           text: "3",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(3);
+                          },
                         ),
                       ],
                     ),
@@ -121,17 +144,23 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
                       DigitButton(
                         text: "4",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(4);
+                        },
                       ),
                       DigitButton(
                         text: "5",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(5);
+                        },
                       ),
                       DigitButton(
                         text: "6",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(6);
+                        },
                       ),
                     ],
                   ),
@@ -141,17 +170,23 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
                       DigitButton(
                         text: "7",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(7);
+                        },
                       ),
                       DigitButton(
                         text: "8",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(8);
+                        },
                       ),
                       DigitButton(
                         text: "9",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(9);
+                        },
                       ),
                     ],
                   ),
@@ -165,7 +200,9 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
                       DigitButton(
                         size: size,
                         text: "0",
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(0);
+                        },
                       ),
                       BackspaceIconButton(size: size),
                     ],

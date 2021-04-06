@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pinapp/Screens/confirm_pin_screen.dart';
 import 'package:pinapp/components/backspace_icon_button.dart';
 import 'package:pinapp/components/custom_appbar.dart';
 import 'package:pinapp/components/digit_button.dart';
@@ -6,14 +7,38 @@ import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
 
 class CreatePinScreen extends StatefulWidget {
+  static String routeName = "/create_pin";
   @override
   _CreatePinScreenState createState() => _CreatePinScreenState();
 }
 
 class _CreatePinScreenState extends State<CreatePinScreen> {
+  String pinData = '';
+
+  addDigit(int digit) {
+    setState(() {
+      pinData = pinData + digit.toString();
+      print('Code is $pinData');
+    });
+    if (pinData.length > 3) {
+      Navigator.pushNamed(
+        context,
+        ConfirmPinScreen.routeName,
+      );
+    }
+  }
+
+  backspace() {
+    if (pinData.length == 0) {
+      return;
+    }
+    setState(() {
+      pinData = pinData.substring(0, pinData.length - 1);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var selectedIndex;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: CustomAppBar(height: size.height * 0.08, size: size),
@@ -40,11 +65,10 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                       alignment: Alignment.center,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
                         children: [
                           DigitHolder(
-                            index: 0,
-                            selectedIndex: selectedIndex,
+                            index: 1,
+                            dataLength: pinData.length,
                             size: size,
                             margin: EdgeInsets.only(
                               left: 40.0,
@@ -52,16 +76,8 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                             ),
                           ),
                           DigitHolder(
-                            index: 1,
-                            selectedIndex: selectedIndex,
-                            size: size,
-                            margin: EdgeInsets.only(
-                              right: 40.0,
-                            ),
-                          ),
-                          DigitHolder(
                             index: 2,
-                            selectedIndex: selectedIndex,
+                            dataLength: pinData.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -69,7 +85,15 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                           ),
                           DigitHolder(
                             index: 3,
-                            selectedIndex: selectedIndex,
+                            dataLength: pinData.length,
+                            size: size,
+                            margin: EdgeInsets.only(
+                              right: 40.0,
+                            ),
+                          ),
+                          DigitHolder(
+                            index: 4,
+                            dataLength: pinData.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -99,17 +123,23 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                         DigitButton(
                           text: "1",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(1);
+                          },
                         ),
                         DigitButton(
                           text: "2",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(2);
+                          },
                         ),
                         DigitButton(
                           text: "3",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(3);
+                          },
                         ),
                       ],
                     ),
@@ -120,17 +150,23 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                       DigitButton(
                         text: "4",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(4);
+                        },
                       ),
                       DigitButton(
                         text: "5",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(5);
+                        },
                       ),
                       DigitButton(
                         text: "6",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(6);
+                        },
                       ),
                     ],
                   ),
@@ -140,17 +176,23 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                       DigitButton(
                         text: "7",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(7);
+                        },
                       ),
                       DigitButton(
                         text: "8",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(8);
+                        },
                       ),
                       DigitButton(
                         text: "9",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(9);
+                        },
                       ),
                     ],
                   ),
@@ -164,9 +206,16 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                       DigitButton(
                         size: size,
                         text: "0",
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(0);
+                        },
                       ),
-                      BackspaceIconButton(size: size),
+                      BackspaceIconButton(
+                        size: size,
+                        onPress: () {
+                          backspace();
+                        },
+                      ),
                     ],
                   ),
                 ],

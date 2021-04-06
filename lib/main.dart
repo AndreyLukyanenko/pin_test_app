@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinapp/constans.dart';
-import 'Screens/confirm_pin_screen.dart';
+import 'Routes/routes.dart';
 import 'Screens/crate_pin_screen.dart';
 
 void main() {
@@ -16,7 +16,8 @@ class PinnApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: kwhiteColor,
       ),
-      home: ConfirmPinScreen(),
+      initialRoute: CreatePinScreen.routeName,
+      routes: routes,
     );
   }
 }
