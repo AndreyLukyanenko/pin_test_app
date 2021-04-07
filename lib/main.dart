@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pinapp/constans.dart';
 import 'Routes/routes.dart';
-import 'Screens/crate_pin_screen.dart';
+import 'Screens/create_pin_screen.dart';
+import 'utils/pin_preferences.dart';
 
-void main() {
+Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await PinSimplePreferences.init();
   runApp(PinnApp());
 }
 

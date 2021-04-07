@@ -5,6 +5,9 @@ import 'package:pinapp/components/custom_appbar.dart';
 import 'package:pinapp/components/digit_button.dart';
 import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pinapp/models.dart';
+import 'package:pinapp/utils/pin_preferences.dart';
 
 class CreatePinScreen extends StatefulWidget {
   static String routeName = "/create_pin";
@@ -13,14 +16,16 @@ class CreatePinScreen extends StatefulWidget {
 }
 
 class _CreatePinScreenState extends State<CreatePinScreen> {
-  String pinData = '';
+  String _pinData = '';
+  // String _prefsPinData = '';
 
   addDigit(int digit) {
     setState(() {
-      pinData = pinData + digit.toString();
-      print('Code is $pinData');
+      _pinData += digit.toString();
+      print('Code is $_pinData');
     });
-    if (pinData.length > 3) {
+    if (_pinData.length >= 4) {
+      saveToPrefs();
       Navigator.pushNamed(
         context,
         ConfirmPinScreen.routeName,
@@ -29,11 +34,25 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
   }
 
   backspace() {
-    if (pinData.length == 0) {
+    if (_pinData.length == 0) {
       return;
     }
     setState(() {
-      pinData = pinData.substring(0, pinData.length - 1);
+      _pinData = _pinData.substring(0, _pinData.length - 1);
+    });
+  }
+
+  saveToPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.getString(_pinData);
+    print("Saved to prefs $_pinData");
+  }
+
+  getFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _pinData = prefs.getString(_pinData) ?? "";
+      print("Downloaded from prefs");
     });
   }
 
@@ -68,7 +87,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                         children: [
                           DigitHolder(
                             index: 1,
-                            dataLength: pinData.length,
+                            dataLength: _pinData.length,
                             size: size,
                             margin: EdgeInsets.only(
                               left: 40.0,
@@ -77,7 +96,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                           ),
                           DigitHolder(
                             index: 2,
-                            dataLength: pinData.length,
+                            dataLength: _pinData.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -85,7 +104,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                           ),
                           DigitHolder(
                             index: 3,
-                            dataLength: pinData.length,
+                            dataLength: _pinData.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -93,7 +112,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                           ),
                           DigitHolder(
                             index: 4,
-                            dataLength: pinData.length,
+                            dataLength: _pinData.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,

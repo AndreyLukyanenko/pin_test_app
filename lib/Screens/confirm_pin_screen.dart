@@ -28,6 +28,15 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
     }
   }
 
+  backspace() {
+    if (confirmPin.length == 0) {
+      return;
+    }
+    setState(() {
+      confirmPin = confirmPin.substring(0, confirmPin.length - 1);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -204,7 +213,12 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
                           addDigit(0);
                         },
                       ),
-                      BackspaceIconButton(size: size),
+                      BackspaceIconButton(
+                        size: size,
+                        onPress: () {
+                          backspace();
+                        },
+                      ),
                     ],
                   ),
                 ],
