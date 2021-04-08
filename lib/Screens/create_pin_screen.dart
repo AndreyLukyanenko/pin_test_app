@@ -5,9 +5,6 @@ import 'package:pinapp/components/custom_appbar.dart';
 import 'package:pinapp/components/digit_button.dart';
 import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:pinapp/models.dart';
-import 'package:pinapp/utils/pin_preferences.dart';
 
 class CreatePinScreen extends StatefulWidget {
   static String routeName = "/create_pin";
@@ -17,7 +14,6 @@ class CreatePinScreen extends StatefulWidget {
 
 class _CreatePinScreenState extends State<CreatePinScreen> {
   String _pinData = '';
-  // String _prefsPinData = '';
 
   addDigit(int digit) {
     setState(() {
@@ -25,10 +21,11 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
       print('Code is $_pinData');
     });
     if (_pinData.length >= 4) {
-      saveToPrefs();
-      Navigator.pushNamed(
+      Navigator.push(
         context,
-        ConfirmPinScreen.routeName,
+        MaterialPageRoute(
+          builder: (context) => ConfirmPinScreen(enteredPin: _pinData),
+        ),
       );
     }
   }
@@ -42,19 +39,6 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
     });
   }
 
-  saveToPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.getString(_pinData);
-    print("Saved to prefs $_pinData");
-  }
-
-  getFromPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _pinData = prefs.getString(_pinData) ?? "";
-      print("Downloaded from prefs");
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

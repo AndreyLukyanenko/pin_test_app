@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pinapp/Screens/create_pin_screen.dart';
 import 'package:pinapp/components/backspace_icon_button.dart';
 import 'package:pinapp/components/custom_appbar.dart';
 import 'package:pinapp/components/digit_button.dart';
 import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthScreen extends StatefulWidget {
   static String routeName = "/auth";
@@ -12,13 +14,50 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  get selectedIndex => null;
+  String authPin = "";
+  String userInputPin = "";
+
+  addDigit(int digit) {
+    setState(() {
+      userInputPin += digit.toString();
+      print('Code is $authPin');
+      if (authPin.length >= 4 && userInputPin == authPin) {
+        print('whaaaaatttt');
+      }
+    });
+  }
+
+  getFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      authPin = prefs.getString("user-pin") ?? "";
+      print("Downloaded from prefs");
+    });
+  }
+
+  backspace() {
+    if (userInputPin.length == 0) {
+      return;
+    }
+    setState(() {
+      userInputPin = userInputPin.substring(0, userInputPin.length - 1);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getFromPrefs();
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppBar(height: size.height * 0.08, size: size),
+      appBar: CustomAppBar(
+        height: size.height * 0.08,
+        size: size,
+      ),
       body: Column(
         children: [
           Expanded(
@@ -44,8 +83,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           DigitHolder(
-                            index: 0,
-                            dataLength: selectedIndex,
+                            index: 1,
+                            dataLength: userInputPin.length,
                             size: size,
                             margin: EdgeInsets.only(
                               left: 40.0,
@@ -53,16 +92,8 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                           ),
                           DigitHolder(
-                            index: 1,
-                            dataLength: selectedIndex,
-                            size: size,
-                            margin: EdgeInsets.only(
-                              right: 40.0,
-                            ),
-                          ),
-                          DigitHolder(
                             index: 2,
-                            dataLength: selectedIndex,
+                            dataLength: userInputPin.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -70,7 +101,15 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           DigitHolder(
                             index: 3,
-                            dataLength: selectedIndex,
+                            dataLength: userInputPin.length,
+                            size: size,
+                            margin: EdgeInsets.only(
+                              right: 40.0,
+                            ),
+                          ),
+                          DigitHolder(
+                            index: 4,
+                            dataLength: userInputPin.length,
                             size: size,
                             margin: EdgeInsets.only(
                               right: 40.0,
@@ -100,17 +139,23 @@ class _AuthScreenState extends State<AuthScreen> {
                         DigitButton(
                           text: "1",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(1);
+                          },
                         ),
                         DigitButton(
                           text: "2",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(2);
+                          },
                         ),
                         DigitButton(
                           text: "3",
                           size: size,
-                          onPress: () {},
+                          onPress: () {
+                            addDigit(3);
+                          },
                         ),
                       ],
                     ),
@@ -121,17 +166,23 @@ class _AuthScreenState extends State<AuthScreen> {
                       DigitButton(
                         text: "4",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(4);
+                        },
                       ),
                       DigitButton(
                         text: "5",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(5);
+                        },
                       ),
                       DigitButton(
                         text: "6",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(6);
+                        },
                       ),
                     ],
                   ),
@@ -141,17 +192,23 @@ class _AuthScreenState extends State<AuthScreen> {
                       DigitButton(
                         text: "7",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(7);
+                        },
                       ),
                       DigitButton(
                         text: "8",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(8);
+                        },
                       ),
                       DigitButton(
                         text: "9",
                         size: size,
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(9);
+                        },
                       ),
                     ],
                   ),
@@ -165,9 +222,16 @@ class _AuthScreenState extends State<AuthScreen> {
                       DigitButton(
                         size: size,
                         text: "0",
-                        onPress: () {},
+                        onPress: () {
+                          addDigit(0);
+                        },
                       ),
-                      BackspaceIconButton(size: size),
+                      BackspaceIconButton(
+                        size: size,
+                        onPress: () {
+                          backspace();
+                        },
+                      ),
                     ],
                   ),
                 ],

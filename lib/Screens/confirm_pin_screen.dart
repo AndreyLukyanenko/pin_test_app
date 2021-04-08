@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pinapp/Screens/auth_screen.dart';
 
 import 'package:pinapp/components/backspace_icon_button.dart';
 import 'package:pinapp/components/custom_appbar.dart';
@@ -9,6 +10,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfirmPinScreen extends StatefulWidget {
   static String routeName = "/confirm_pin";
+  final String enteredPin;
+
+  ConfirmPinScreen({
+    Key key,
+    this.enteredPin,
+  }) : super(key: key);
 
   @override
   _ConfirmPinScreen createState() => _ConfirmPinScreen();
@@ -16,15 +23,16 @@ class ConfirmPinScreen extends StatefulWidget {
 
 class _ConfirmPinScreen extends State<ConfirmPinScreen> {
   String confirmPin = '';
-  addDigit(int digit) {
+
+  addDigit(int digit) async {
+    print(widget.enteredPin);
     setState(() {
-      confirmPin = confirmPin + digit.toString();
+      confirmPin += digit.toString();
+      saveToPrefs();
       print('Code is $confirmPin');
     });
-    if (confirmPin.length == 4) {
-      AlertDialog(
-        title: Text('You Path'),
-      );
+    if (confirmPin.length >= 4 && confirmPin == widget.enteredPin) {
+      Navigator.pushNamed(context, AuthScreen.routeName);
     }
   }
 
@@ -34,6 +42,20 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
     }
     setState(() {
       confirmPin = confirmPin.substring(0, confirmPin.length - 1);
+    });
+  }
+
+  saveToPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("user-pin", widget.enteredPin);
+    print("Saved to prefs ${widget.enteredPin}");
+  }
+
+  getFromPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      confirmPin = prefs.getString("user-pin") ?? "";
+      print("Downloaded from prefs");
     });
   }
 
