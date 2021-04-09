@@ -32,7 +32,20 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
       print('Code is $confirmPin');
     });
     if (confirmPin.length >= 4 && confirmPin == widget.enteredPin) {
-      Navigator.pushNamed(context, AuthScreen.routeName);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Your PIN has been setup succesfuly!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, AuthScreen.routeName);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -66,6 +79,8 @@ class _ConfirmPinScreen extends State<ConfirmPinScreen> {
       appBar: CustomAppBar(
         height: size.height * 0.08,
         size: size,
+        titleText: 'Setup PIN',
+        text: 'Use 6-digits PIN',
       ),
       body: Column(
         children: [

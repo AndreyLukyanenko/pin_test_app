@@ -39,12 +39,16 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppBar(height: size.height * 0.08, size: size),
+      appBar: CustomAppBar(
+        height: size.height * 0.08,
+        size: size,
+        titleText: 'Setup PIN',
+        text: 'Use 6-digits PIN',
+      ),
       body: Column(
         children: [
           Expanded(

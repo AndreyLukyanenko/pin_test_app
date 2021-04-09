@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../constans.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String titleText;
+  final String text;
   final double height;
   final Icon icon;
   final Function onTap;
@@ -12,6 +14,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.height,
     this.icon,
     this.onTap,
+    this.titleText,
+    this.text,
   }) : super(key: key);
 
   final Size size;
@@ -20,7 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        'Setup PIN',
+        titleText,
         style: TextStyle(
           fontSize: size.height * 0.025,
         ),
@@ -32,7 +36,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Text(
-                'Use 6-digits PIN',
+                text,
                 style: TextStyle(
                   fontSize: size.height * 0.025,
                   color: ktitleColor,
