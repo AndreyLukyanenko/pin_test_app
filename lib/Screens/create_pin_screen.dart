@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pinapp/Screens/confirm_pin_screen.dart';
 import 'package:pinapp/components/backspace_icon_button.dart';
 import 'package:pinapp/components/custom_appbar.dart';
+import 'package:pinapp/components/digit_block.dart';
 import 'package:pinapp/components/digit_button.dart';
 import 'package:pinapp/components/digit_holder.dart';
 import 'package:pinapp/components/text_title.dart';
@@ -64,52 +65,7 @@ class _CreatePinScreenState extends State<CreatePinScreen> {
                       size: size,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 35.0,
-                    ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          DigitHolder(
-                            index: 1,
-                            dataLength: _pinData.length,
-                            size: size,
-                            margin: EdgeInsets.only(
-                              left: 40.0,
-                              right: 40.0,
-                            ),
-                          ),
-                          DigitHolder(
-                            index: 2,
-                            dataLength: _pinData.length,
-                            size: size,
-                            margin: EdgeInsets.only(
-                              right: 40.0,
-                            ),
-                          ),
-                          DigitHolder(
-                            index: 3,
-                            dataLength: _pinData.length,
-                            size: size,
-                            margin: EdgeInsets.only(
-                              right: 40.0,
-                            ),
-                          ),
-                          DigitHolder(
-                            index: 4,
-                            dataLength: _pinData.length,
-                            size: size,
-                            margin: EdgeInsets.only(
-                              right: 40.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  DigitBlock(size: size, pinData: _pinData),
                 ],
               ),
             ),
