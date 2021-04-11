@@ -81,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       size: size,
                     ),
                   ),
-                  DigitBlock(size: size, pinData: authPin),
+                  DigitBlock(size: size, pinData: userInputPin),
                 ],
               ),
             ),
